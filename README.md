@@ -126,4 +126,13 @@ To assist with your documentation repository setup, let me know how you would li
 * I can generate a **Markdown matrix table** tracking the explicit multi-objective balance rules and optimization parameters utilized by leading enterprise architectures to manage the "Alignment Tax."
 * I can write a detailed technical explanation focusing on **how to configure dynamic task weighting** using Kendall's homoscedastic uncertainty loss mechanics smoothly at training time.
 
-
+##  Star History
+<div align="center">
+<a href="https://www.star-history.com/?repos=ishandutta2007%2FAwesome-Pareto-Optimality&type=date&legend=bottom-right">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Pareto-Optimality&type=date&theme=dark&legend=bottom-right" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Pareto-Optimality&type=date&legend=bottom-right" />
+<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Pareto-Optimality&type=date&legend=bottom-right" />
+</picture>
+</a>
+</div>
