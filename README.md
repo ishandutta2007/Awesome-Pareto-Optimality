@@ -33,16 +33,16 @@ The implementation of Pareto boundaries in AI has transitioned from classical sc
 
 Pareto frameworks are strictly categorized based on how the optimization graph parses multi-objective dominance vectors at runtime.
 
-### A. Pareto Dominance Sorting
-*   **Mechanism:** A vector $u = (u_1, \dots, u_m)$ is said to strictly dominate another vector $v = (v_1, \dots, v_m)$ if and only if every individual coordinate of $u$ is greater than or equal to $v$, and at least one coordinate is strictly greater ($u_i > v_i$). The algorithm filters out dominated variants to isolate the pristine Pareto Frontier.
+- ### A. Pareto Dominance Sorting
+	*   **Mechanism:** A vector $u = (u_1, \dots, u_m)$ is said to strictly dominate another vector $v = (v_1, \dots, v_m)$ if and only if every individual coordinate of $u$ is greater than or equal to $v$, and at least one coordinate is strictly greater ($u_i > v_i$). The algorithm filters out dominated variants to isolate the pristine Pareto Frontier.
 
-### B. Multiple Gradient Descent Algorithm (MGDA)
-*   **Mechanism:** Formulates multi-task learning as a multi-objective optimization problem. It solves a custom optimization sub-problem over active layer gradients at each epoch step:
-    $$\min_{\alpha} \left\| \sum_{t=1}^{T} \alpha_t \nabla_{\theta} \mathcal{L}_t \right\|^2, \quad \text{subject to} \quad \sum \alpha_t = 1, \, \alpha_t \ge 0$$
-*   **Behavior:** Finds a minimum-norm common gradient direction. If the solution collapses to absolute zero, it mathematically proves the model has hit a local Pareto Critical Point.
+- ### B. Multiple Gradient Descent Algorithm (MGDA)
+	*   **Mechanism:** Formulates multi-task learning as a multi-objective optimization problem. It solves a custom optimization sub-problem over active layer gradients at each epoch step:
+	    $$\min_{\alpha} \left\| \sum_{t=1}^{T} \alpha_t \nabla_{\theta} \mathcal{L}_t \right\|^2, \quad \text{subject to} \quad \sum \alpha_t = 1, \, \alpha_t \ge 0$$
+	*   **Behavior:** Finds a minimum-norm common gradient direction. If the solution collapses to absolute zero, it mathematically proves the model has hit a local Pareto Critical Point.
 
-### C. Pareto Hypernetwork Steering
-*   **Mechanism:** Trains a secondary, conditioning neural network (a Hypernetwork) to output the exact weights of a target network on-the-fly. The hypernetwork reads an arbitrary preference vector (e.g., instructing the system to prioritize 80% inference speed and 20% model precision), instantly tuning the target network to that specific coordinate on the Pareto Frontier.
+- ### C. Pareto Hypernetwork Steering
+	*   **Mechanism:** Trains a secondary, conditioning neural network (a Hypernetwork) to output the exact weights of a target network on-the-fly. The hypernetwork reads an arbitrary preference vector (e.g., instructing the system to prioritize 80% inference speed and 20% model precision), instantly tuning the target network to that specific coordinate on the Pareto Frontier.
 
 ---
 
