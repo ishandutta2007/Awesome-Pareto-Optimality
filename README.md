@@ -12,7 +12,11 @@ In contemporary artificial intelligence, Pareto Optimality serves as the foundat
 The implementation of Pareto boundaries in AI has transitioned from classical scalarized searches to evolutionary population tracking, moving toward modern gradient-based multi-task loops and test-time alignment frontiers.
 
 ```mermaid
-[Weighted Scalarization Era] ───> [Evolutionary MOO (NSGA-II, 2002)] ───> [Multi-Task Gradient Methods (MGDA, 2018)] ───> [Post-Training Alignment Frontiers](Fragile Linear Priority Guesses)      (Population-Driven Frontier Tracking)       (Shared Parameter Jacobi Gradients)       (The Harmless vs. Helpful Pareto Tax)
+flowchart LR
+    A["Weighted Scalarization Era<br/>(Fragile Linear Priority Guesses)"]
+    --> B["Evolutionary MOO (NSGA-II, 2002)<br/>(Population-Driven Pareto Frontier Search)"]
+    --> C["Multi-Task Gradient Methods (MGDA, 2018)<br/>(Shared-Parameter Gradient Balancing)"]
+    --> D["Post-Training Alignment Frontiers<br/>(Helpful–Harmless Pareto Trade-offs)"]
 ```
 
 *   **The Linear Weighted Scalarization Era (Traditional ML Baseline)**
