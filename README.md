@@ -19,17 +19,12 @@ flowchart LR
     --> D["Post-Training Alignment Frontiers<br/>(Helpful–Harmless Pareto Trade-offs)"]
 ```
 
-*   **The Linear Weighted Scalarization Era (Traditional ML Baseline)**
-    *   *Concept:* The early foundational baseline. Multi-objective optimization was handled by manually combining conflicting goals into a single, global loss function using static multipliers: $\mathcal{L}_{\text{global}} = \alpha \mathcal{L}_1 + \beta \mathcal{L}_2$.
-    *   *Limitation:* Highly fragile and dependent on arbitrary human guesswork. Linear scalarization cannot capture non-convex regions of the true Pareto Frontier, meaning the optimizer skips critical trade-off thresholds entirely if the underlying mathematical boundary curves irregularly.
-*   **The Population-Driven Evolutionary Era (NSGA-II / SPEA2, ~2002–2017)**
-    *   *Concept:* Ported Pareto tracking into genetic and evolutionary algorithms. Frameworks like **NSGA-II (Non-dominated Sorting Genetic Algorithm II)** maintained a diverse pool of model candidates simultaneously. Individuals were sorted and ranked based on their absolute dominance vectors, utilizing crowding distance metrics to ensure the population spread out evenly along the entire length of the physical Pareto Frontier.
-    *   *Significance:* Successfully mapped non-convex optimization boundaries, standardizing automated Neural Architecture Search (NAS) and hardware-aware structural pruning pipelines.
-*   **The Multi-Task Gradient-Based Era (MGDA, ~2018–2023)**
-    *   *Concept:* Integrated multi-objective Pareto optimization straight into end-to-end backpropagation. Algorithms like the **Multiple Gradient Descent Algorithm (MGDA)** calculated the exact intersection vector of conflicting task gradients. By finding a shared direction that simultaneously minimizes all losses, the backpropagation loop acts as a true Pareto descent mechanism.
-    *   *Significance:* Allowed deep multi-task networks (e.g., computer vision backbones executing simultaneous object detection, segmentation, and depth estimation) to train stably without a single task over-correcting or erasing the parameters of another.
-*   **The Post-Training Foundation Alignment Era (~2024–Present)**
-    *   *Concept:* The current modern state-of-the-art frontier standard. Addresses the fundamental capability tensions embedded within modern Large Language Models and reasoning architectures. Alignment teams optimize policies across the **"Helpful vs. Harmless vs. Honest" Pareto Frontier**. 
+| Concept / Era | Details | Year First Used | First Used Paper |
+| :--- | :--- | :---: | :--- |
+| **The Linear Weighted Scalarization Era (Traditional ML Baseline)** | **Concept:** The early foundational baseline. Multi-objective optimization was handled by manually combining conflicting goals into a single, global loss function using static multipliers: $\mathcal{L}_{\text{global}} = \alpha \mathcal{L}_1 + \beta \mathcal{L}_2$.<br/><br/>**Limitation:** Highly fragile and dependent on arbitrary human guesswork. Linear scalarization cannot capture non-convex regions of the true Pareto Frontier, meaning the optimizer skips critical trade-off thresholds entirely if the underlying mathematical boundary curves irregularly. | 1963 | Lotfi A. Zadeh (1963). [Optimality and Non-Scalar-Valued Performance Criteria](https://ieeexplore.ieee.org/document/4036882) |
+| **The Population-Driven Evolutionary Era (NSGA-II / SPEA2, ~2002–2017)** | **Concept:** Ported Pareto tracking into genetic and evolutionary algorithms. Frameworks like **NSGA-II (Non-dominated Sorting Genetic Algorithm II)** maintained a diverse pool of model candidates simultaneously. Individuals were sorted and ranked based on their absolute dominance vectors, utilizing crowding distance metrics to ensure the population spread out evenly along the entire length of the physical Pareto Frontier.<br/><br/>**Significance:** Successfully mapped non-convex optimization boundaries, standardizing automated Neural Architecture Search (NAS) and hardware-aware structural pruning pipelines. | 2002 | Deb et al. (2002). [A fast and elitist multiobjective genetic algorithm: NSGA-II](https://ieeexplore.ieee.org/document/996017) |
+| **The Multi-Task Gradient-Based Era (MGDA, ~2018–2023)** | **Concept:** Integrated multi-objective Pareto optimization straight into end-to-end backpropagation. Algorithms like the **Multiple Gradient Descent Algorithm (MGDA)** calculated the exact intersection vector of conflicting task gradients. By finding a shared direction that simultaneously minimizes all losses, the backpropagation loop acts as a true Pareto descent mechanism.<br/><br/>**Significance:** Allowed deep multi-task networks (e.g., computer vision backbones executing simultaneous object detection, segmentation, and depth estimation) to train stably without a single task over-correcting or erasing the parameters of another. | 2018 | Sener & Koltun (2018). [Multi-task learning as multi-objective optimization](https://papers.nips.cc/paper/2018/hash/430c3626b879ad76a857bab053ec40bc-Abstract.html) |
+| **The Post-Training Foundation Alignment Era (~2024–Present)** | **Concept:** The current modern state-of-the-art frontier standard. Addresses the fundamental capability tensions embedded within modern Large Language Models and reasoning architectures. Alignment teams optimize policies across the **"Helpful vs. Harmless vs. Honest" Pareto Frontier**. | 2022 | Ouyang et al. (2022). [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) | 
 
 ---
 
@@ -37,16 +32,11 @@ flowchart LR
 
 Pareto frameworks are strictly categorized based on how the optimization graph parses multi-objective dominance vectors at runtime.
 
-- ### A. Pareto Dominance Sorting
-	*   **Mechanism:** A vector $u = (u_1, \dots, u_m)$ is said to strictly dominate another vector $v = (v_1, \dots, v_m)$ if and only if every individual coordinate of $u$ is greater than or equal to $v$, and at least one coordinate is strictly greater ($u_i > v_i$). The algorithm filters out dominated variants to isolate the pristine Pareto Frontier.
-
-- ### B. Multiple Gradient Descent Algorithm (MGDA)
-	*   **Mechanism:** Formulates multi-task learning as a multi-objective optimization problem. It solves a custom optimization sub-problem over active layer gradients at each epoch step:
-	    $$\min_{\alpha} \left\| \sum_{t=1}^{T} \alpha_t \nabla_{\theta} \mathcal{L}_t \right\|^2, \quad \text{subject to} \quad \sum \alpha_t = 1, \, \alpha_t \ge 0$$
-	*   **Behavior:** Finds a minimum-norm common gradient direction. If the solution collapses to absolute zero, it mathematically proves the model has hit a local Pareto Critical Point.
-
-- ### C. Pareto Hypernetwork Steering
-	*   **Mechanism:** Trains a secondary, conditioning neural network (a Hypernetwork) to output the exact weights of a target network on-the-fly. The hypernetwork reads an arbitrary preference vector (e.g., instructing the system to prioritize 80% inference speed and 20% model precision), instantly tuning the target network to that specific coordinate on the Pareto Frontier.
+| Algorithmic Variant | Mechanism / Behavior | Year First Used | First Used Paper |
+| :--- | :--- | :---: | :--- |
+| **A. Pareto Dominance Sorting** | **Mechanism:** A vector $u = (u_1, \dots, u_m)$ is said to strictly dominate another vector $v = (v_1, \dots, v_m)$ if and only if every individual coordinate of $u$ is greater than or equal to $v$, and at least one coordinate is strictly greater ($u_i > v_i$). The algorithm filters out dominated variants to isolate the pristine Pareto Frontier. | 1989 | Goldberg (1989). [Genetic Algorithms in Search, Optimization, and Machine Learning](https://www.scirp.org/reference/referencespapers?referenceid=1778949) |
+| **B. Multiple Gradient Descent Algorithm (MGDA)** | **Mechanism:** Formulates multi-task learning as a multi-objective optimization problem. It solves a custom optimization sub-problem over active layer gradients at each epoch step: $$\min_{\alpha} \left\| \sum_{t=1}^{T} \alpha_t \nabla_{\theta} \mathcal{L}_t \right\|^2, \quad \text{subject to} \quad \sum \alpha_t = 1, \, \alpha_t \ge 0$$<br/>**Behavior:** Finds a minimum-norm common gradient direction. If the solution collapses to absolute zero, it mathematically proves the model has hit a local Pareto Critical Point. | 2012 | Désidéri (2012). [Multiple-gradient descent algorithm (MGDA) for multiobjective optimization](https://inria.hal.science/hal-00766680) |
+| **C. Pareto Hypernetwork Steering** | **Mechanism:** Trains a secondary, conditioning neural network (a Hypernetwork) to output the exact weights of a target network on-the-fly. The hypernetwork reads an arbitrary preference vector (e.g., instructing the system to prioritize 80% inference speed and 20% model precision), instantly tuning the target network to that specific coordinate on the Pareto Frontier. | 2020 | Navon et al. (2020). [Learning the Pareto frontier with hypernetworks](https://arxiv.org/abs/2010.04104) |
 
 ---
 
@@ -54,9 +44,10 @@ Pareto frameworks are strictly categorized based on how the optimization graph p
 
 Depending on the operational constraints of the infrastructure stack, Pareto optimization balances distinct multi-dimensional capabilities.
 
-*   **The Hardware-Aware Efficiency Frontier (Accuracy vs. Latency)**
-    *   *Profile:* Optimizes model deployment footprints. It balances model reasoning accuracy against physical compute latencies, VRAM constraints, and energy boundaries.
-    *   *Significance:* Guides **Quantization and Weight-Pruning schedules** [INDEX: 16], allowing developers to select the optimal model size that delivers the highest possible factual performance within strict edge-device microcontroller hardware limitations.
+| Trade-Off Profile | Details | Year First Used | First Used Paper |
+| :--- | :--- | :---: | :--- |
+| **The Hardware-Aware Efficiency Frontier (Accuracy vs. Latency)** | **Profile:** Optimizes model deployment footprints. It balances model reasoning accuracy against physical compute latencies, VRAM constraints, and energy boundaries.<br/><br/>**Significance:** Guides **Quantization and Weight-Pruning schedules** [INDEX: 16], allowing developers to select the optimal model size that delivers the highest possible factual performance within strict edge-device microcontroller hardware limitations. | 2019 | Tan et al. (2019). [MnasNet: Platform-aware neural architecture search for mobile](https://arxiv.org/abs/1807.11626) |
+| **The "Alignment Tax" Frontier (Helpful vs. Harmless)** | **Profile:** Shapes foundational behavioral distributions. Pushing a model to be perfectly *harmless* (via intense safety fine-tuning) can trigger **Refusal Underfitting**, making it less *helpful* because it over-generalizes safety masks and refuses benign queries. Pareto optimization via custom DPO loss weights calibrates the precise boundary intersection to maximize utility safely. | 2021 | Askell et al. (2021). [A General Language Assistant as a Laboratory for Alignment](https://arxiv.org/abs/2112.00861) |
 
 ```mermaid
 flowchart LR
@@ -76,32 +67,26 @@ end
   <img src="assets/accuracy.png" alt="Accuracy vs. Latency Pareto Frontier" width="100%" />
 </p>
 
-*   **The "Alignment Tax" Frontier (Helpful vs. Harmless)**
-    *   *Profile:* Shapes foundational behavioral distributions. Pushing a model to be perfectly *harmless* (via intense safety fine-tuning) can trigger **Refusal Underfitting**, making it less *helpful* because it over-generalizes safety masks and refuses benign queries. Pareto optimization via custom DPO loss weights calibrates the precise boundary intersection to maximize utility safely.
-
 ---
 
 ## 4. Production Engineering Challenges & Hardware Solutions
 
 Enforcing complex multi-objective Pareto allocations across high-throughput distributed training environments introduces unique runtime scaling bottlenecks.
 
-*   **The Gradient Conflict and Optimization Stagnation Wall**
-    *   *The Problem:* In large-scale distributed multi-task pre-training, separate loss functions can output opposing gradient updates (e.g., task A commands a weight to increase, while task B commands it to decrease). If executed naively, these conflicting forces cancel each other out, locking the model into a sub-optimal training plateau where it ceases to converge.
-    *   *Mitigation:* Implementing **Gradient Surgery layers (such as PCGrad / Projecting Conflicting Gradients)**, which identify conflicting vectors at runtime and mathematically project each gradient onto the normal plane of the other, neutralizing destructive interference before parameters are updated.
-*   **The High Cost of Infinite Frontier Sampling**
-    *   *The Problem:* Mapping out an explicit, dense Pareto Frontier using traditional evolutionary or grid-search methods requires running thousands of independent, full-scale training iterations, which consumes unsustainable token budgets and millions of dollars in GPU compute.
-    *   *Mitigation:* Deploying **Monolithic Multi-Task Loss Functions with Dynamic Scaling Weights** (such as GradNorm or Kendall’s Uncertainty Weighting), which automatically adjust task priorities on-the-fly inside a single training run based on relative layer gradient scales.
+| Production Challenge | Details | Year First Used | First Used Paper |
+| :--- | :--- | :---: | :--- |
+| **The Gradient Conflict and Optimization Stagnation Wall** | **The Problem:** In large-scale distributed multi-task pre-training, separate loss functions can output opposing gradient updates (e.g., task A commands a weight to increase, while task B commands it to decrease). If executed naively, these conflicting forces cancel each other out, locking the model into a sub-optimal training plateau where it ceases to converge.<br/><br/>**Mitigation:** Implementing **Gradient Surgery layers (such as PCGrad / Projecting Conflicting Gradients)**, which identify conflicting vectors at runtime and mathematically project each gradient onto the normal plane of the other, neutralizing destructive interference before parameters are updated. | 2020 | Yu et al. (2020). [Gradient surgery for multi-task learning](https://arxiv.org/abs/2001.06782) |
+| **The High Cost of Infinite Frontier Sampling** | **The Problem:** Mapping out an explicit, dense Pareto Frontier using traditional evolutionary or grid-search methods requires running thousands of independent, full-scale training iterations, which consumes unsustainable token budgets and millions of dollars in GPU compute.<br/><br/>**Mitigation:** Deploying **Monolithic Multi-Task Loss Functions with Dynamic Scaling Weights** (such as GradNorm or Kendall’s Uncertainty Weighting), which automatically adjust task priorities on-the-fly inside a single training run based on relative layer gradient scales. | 2018 | Chen et al. (2018). [GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks](https://arxiv.org/abs/1711.02257) |
 
 ---
 
 ## 5. Frontier Real-World AI Applications
 
-*   **Post-Training Safety & Persona Alignment for Foundation LLMs**
-    *   *Application:* Calibrates conversational deployment boundaries. Advanced reinforcement learning pipelines deploy multi-objective reward models to evaluate model responses against conflicting criteria concurrently, ensuring outputs maintain optimal balances between factual precision, helpful verbosity, and strict safety guidelines.
-*   **Multi-Task Autonomous Perception Stacks for Self-Driving Vehicles**
-    *   *Application:* Ingests continuous high-frame-rate streaming camera video and LiDAR 3D coordinates simultaneously [INDEX: 1]. A unified residual backbone network executes multi-task predictions—running object detection bounding, lane segmentation, and depth estimation concurrently—using Pareto gradient surgery to ensure all visual tasks optimize without corrupting adjacent feature maps [INDEX: 1].
-*   **Hardware-Aware Neural Architecture Search (NAS) for Edge AI**
-    *   *Application:* Compresses model footprints to fit within consumer edge hardware (smartphones, automobiles, wearables) [INDEX: 16]. Evolutionary Pareto optimization loops evaluate hundreds of structural sub-networks, automatically isolating the "winning tickets" that minimize VRAM footprints while maximizing accuracy thresholds [INDEX: 16].
+| Real-World Application | Details | Year First Used | First Used Paper |
+| :--- | :--- | :---: | :--- |
+| **Post-Training Safety & Persona Alignment for Foundation LLMs** | **Application:** Calibrates conversational deployment boundaries. Advanced reinforcement learning pipelines deploy multi-objective reward models to evaluate model responses against conflicting criteria concurrently, ensuring outputs maintain optimal balances between factual precision, helpful verbosity, and strict safety guidelines. | 2022 | Ouyang et al. (2022). [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) |
+| **Multi-Task Autonomous Perception Stacks for Self-Driving Vehicles** | **Application:** Ingests continuous high-frame-rate streaming camera video and LiDAR 3D coordinates simultaneously [INDEX: 1]. A unified residual backbone network executes multi-task predictions—running object detection bounding, lane segmentation, and depth estimation concurrently—using Pareto gradient surgery to ensure all visual tasks optimize without corrupting adjacent feature maps [INDEX: 1]. | 2020 | Yu et al. (2020). [Gradient surgery for multi-task learning](https://arxiv.org/abs/2001.06782) |
+| **Hardware-Aware Neural Architecture Search (NAS) for Edge AI** | **Application:** Compresses model footprints to fit within consumer edge hardware (smartphones, automobiles, wearables) [INDEX: 16]. Evolutionary Pareto optimization loops evaluate hundreds of structural sub-networks, automatically isolating the "winning tickets" that minimize VRAM footprints while maximizing accuracy thresholds [INDEX: 16]. | 2019 | Lu et al. (2019). [NSGA-Net: a multi-objective genetic algorithm for neural architecture search](https://arxiv.org/abs/1810.03522) |
 
 ---
 
