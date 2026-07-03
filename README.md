@@ -1,5 +1,10 @@
-# Awesome-Pareto-Optimality
-## Pareto Optimality in AI: History, Progression, Variants, & Applications
+# 🎯 Awesome Pareto Optimality
+
+<p align="center">
+  <img src="assets/banner.svg" alt="Awesome Pareto Optimality Banner" width="100%" />
+</p>
+
+## 🚀 Pareto Optimality in AI: History, Progression, Variants, & Applications
 
 **Pareto Optimality**—fundamentally rooted in multi-objective optimization (MOO) and microeconomic game theory—is an algorithmic framework designed to balance conflicting goals or evaluation metrics within artificial intelligence systems. A system state or model configuration is defined as **Pareto Optimal** (or Pareto efficient) if it is mathematically impossible to improve one specific objective without making at least one other objective strictly worse. The complete set of these non-dominated, optimal trade-off configurations maps out a geometric boundary known as the **Pareto Frontier**. 
 
@@ -7,7 +12,7 @@ In contemporary artificial intelligence, Pareto Optimality serves as the foundat
 
 ---
 
-## 1. The Macro Chronological Evolution
+## 📅 1. The Macro Chronological Evolution
 
 The implementation of Pareto boundaries in AI has transitioned from classical scalarized searches to evolutionary population tracking, moving toward modern gradient-based multi-task loops and test-time alignment frontiers.
 
@@ -28,7 +33,7 @@ flowchart LR
 
 ---
 
-## 2. Core Functional & Algorithmic Variants
+## 🛠️ 2. Core Functional & Algorithmic Variants
 
 Pareto frameworks are strictly categorized based on how the optimization graph parses multi-objective dominance vectors at runtime.
 
@@ -40,7 +45,7 @@ Pareto frameworks are strictly categorized based on how the optimization graph p
 
 ---
 
-## 3. Structural AI System Trade-Off Profiles
+## ⚖️ 3. Structural AI System Trade-Off Profiles
 
 Depending on the operational constraints of the infrastructure stack, Pareto optimization balances distinct multi-dimensional capabilities.
 
@@ -69,7 +74,7 @@ end
 
 ---
 
-## 4. Production Engineering Challenges & Hardware Solutions
+## ⚙️ 4. Production Engineering Challenges & Hardware Solutions
 
 Enforcing complex multi-objective Pareto allocations across high-throughput distributed training environments introduces unique runtime scaling bottlenecks.
 
@@ -80,7 +85,7 @@ Enforcing complex multi-objective Pareto allocations across high-throughput dist
 
 ---
 
-## 5. Frontier Real-World AI Applications
+## 🌟 5. Frontier Real-World AI Applications
 
 | Real-World Application | Details | Year First Used | First Used Paper |
 | :--- | :--- | :---: | :--- |
@@ -90,7 +95,7 @@ Enforcing complex multi-objective Pareto allocations across high-throughput dist
 
 ---
 
-## References
+## 📚 References
 1. Deb, K., et al. (2002). A fast and elitist multiobjective genetic algorithm: NSGA-II. *IEEE Transactions on Evolutionary Computation*, 6(2), 182-197.
 2. Sener, O., & Koltun, V. (2018). Multi-task learning as multi-objective optimization. *Advances in Neural Information Processing Systems (NeurIPS)*, 31.
 3. Yu, T., et al. (2020). Gradient surgery for multi-task learning. *arXiv preprint arXiv:2001.06782*.
