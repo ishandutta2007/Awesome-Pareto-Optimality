@@ -11,7 +11,10 @@ In contemporary artificial intelligence, Pareto Optimality serves as the foundat
 
 The implementation of Pareto boundaries in AI has transitioned from classical scalarized searches to evolutionary population tracking, moving toward modern gradient-based multi-task loops and test-time alignment frontiers.
 
+```mermaid
 [Weighted Scalarization Era] ───> [Evolutionary MOO (NSGA-II, 2002)] ───> [Multi-Task Gradient Methods (MGDA, 2018)] ───> [Post-Training Alignment Frontiers](Fragile Linear Priority Guesses)      (Population-Driven Frontier Tracking)       (Shared Parameter Jacobi Gradients)       (The Harmless vs. Helpful Pareto Tax)
+```
+
 *   **The Linear Weighted Scalarization Era (Traditional ML Baseline)**
     *   *Concept:* The early foundational baseline. Multi-objective optimization was handled by manually combining conflicting goals into a single, global loss function using static multipliers: $\mathcal{L}_{\text{global}} = \alpha \mathcal{L}_1 + \beta \mathcal{L}_2$.
     *   *Limitation:* Highly fragile and dependent on arbitrary human guesswork. Linear scalarization cannot capture non-convex regions of the true Pareto Frontier, meaning the optimizer skips critical trade-off thresholds entirely if the underlying mathematical boundary curves irregularly.
@@ -51,7 +54,10 @@ Depending on the operational constraints of the infrastructure stack, Pareto opt
     *   *Profile:* Optimizes model deployment footprints. It balances model reasoning accuracy against physical compute latencies, VRAM constraints, and energy boundaries.
     *   *Significance:* Guides **Quantization and Weight-Pruning schedules** [INDEX: 16], allowing developers to select the optimal model size that delivers the highest possible factual performance within strict edge-device microcontroller hardware limitations.
 
+```mermaid
 The Accuracy vs. Latency Pareto FrontierHigh ┌─────────────────────────────────────────────────────────────│                                                     • [Dense 70B Model]│                                           • [Sparse MoE]│                                 • [32B FP16]Model   │                       • [8B INT8]Accuracy│             • [1B NF4]│   • [Dead Zone]Low └─────────────┴───────────────────────────────────────────────Low (High Latency)                                  High (Low Latency)Inference Throughput (Tokens/Sec)
+```
+
 *   **The "Alignment Tax" Frontier (Helpful vs. Harmless)**
     *   *Profile:* Shapes foundational behavioral distributions. Pushing a model to be perfectly *harmless* (via intense safety fine-tuning) can trigger **Refusal Underfitting**, making it less *helpful* because it over-generalizes safety masks and refuses benign queries. Pareto optimization via custom DPO loss weights calibrates the precise boundary intersection to maximize utility safely.
 
