@@ -59,8 +59,22 @@ Depending on the operational constraints of the infrastructure stack, Pareto opt
     *   *Significance:* Guides **Quantization and Weight-Pruning schedules** [INDEX: 16], allowing developers to select the optimal model size that delivers the highest possible factual performance within strict edge-device microcontroller hardware limitations.
 
 ```mermaid
-The Accuracy vs. Latency Pareto FrontierHigh ┌─────────────────────────────────────────────────────────────│                                                     • [Dense 70B Model]│                                           • [Sparse MoE]│                                 • [32B FP16]Model   │                       • [8B INT8]Accuracy│             • [1B NF4]│   • [Dead Zone]Low └─────────────┴───────────────────────────────────────────────Low (High Latency)                                  High (Low Latency)Inference Throughput (Tokens/Sec)
+flowchart LR
+
+subgraph P["Accuracy vs. Latency Pareto Frontier"]
+    A["● Dead Zone"]
+    B["● 1B NF4"]
+    C["● 8B INT8"]
+    D["● 32B FP16"]
+    E["● Sparse MoE"]
+    F["● Dense 70B"]
+
+    A --> B --> C --> D --> E --> F
+end
 ```
+<p align="center">
+  <img src="assets/accuracy.png" alt="Accuracy vs. Latency Pareto Frontier" width="100%" />
+</p>
 
 *   **The "Alignment Tax" Frontier (Helpful vs. Harmless)**
     *   *Profile:* Shapes foundational behavioral distributions. Pushing a model to be perfectly *harmless* (via intense safety fine-tuning) can trigger **Refusal Underfitting**, making it less *helpful* because it over-generalizes safety masks and refuses benign queries. Pareto optimization via custom DPO loss weights calibrates the precise boundary intersection to maximize utility safely.
